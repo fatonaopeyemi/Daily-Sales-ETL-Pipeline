@@ -1,231 +1,253 @@
+# Daily Sales ETL Pipeline with Machine Learning
 
-ETL pipeline for transforming daily supermarket sales data into  systematic useful business report.
+## Overview
 
-**Daily Sales ETL Pipeline with Machine Learning**
+The Daily Sales ETL Pipeline is an end-to-end Data Engineering and Machine Learning project developed to automate the processing and reporting of supermarket sales transactions from kaggle by Fares Ashraf.
+The project addresses the problem of manual and time-consuming sales reporting by implementing an automated Extract, Transform, and Load (ETL) pipeline.
+The pipeline extracts raw sales data, cleans and transforms the data, generates daily sales summaries, and stores the processed data in CSV and SQLite formats.
 
-Overview
-The Daily Sales ETL Pipeline is an end-to-end data engineering and machine learning project developed to automate the processing of supermarket sales transactions. The project addresses the challenge of manual and time-consuming sales reporting by implementing an automated Extract, Transform, and Load (ETL) pipeline that generates daily sales summaries and stores the processed data in multiple formats for reporting and analysis.
+Machine Learning models were also developed to predict sales performance using historical transaction data.
 
-In addition to the ETL process, machine learning models were developed to analyze sales patterns and predict sales performance using historical transaction data.
+## Problem Statement
 
-**Problem Statement**
-Many businesses rely on manually generated daily sales reports, which are often inefficient, prone to human error, and unsuitable for timely business decision-making. Automating the reporting process improves data quality, reduces processing time, and enables managers to make faster, data-driven decisions.
+Many businesses rely on manually generated daily sales reports. This process can be time-consuming, prone to human error, and inefficient for timely business decision-making.
+Automating the reporting process can improve data accuracy, reduce processing time, and provide businesses with structured information for better decision-making.
+This project demonstrates how an automated ETL pipeline can simplify daily sales reporting while incorporating Machine Learning for predictive analysis.
 
-This project demonstrates how an automated ETL pipeline can simplify daily sales reporting while incorporating predictive analytics to support business intelligence.
+## Project Objectives
 
-**Project Objectives**
 The objectives of this project are to:
 
-Design and implement an automated ETL pipeline for daily sales reporting.
-Extract supermarket transaction data from a CSV dataset.
-Clean, validate, and transform raw transactional data into meaningful daily summaries.
-Store processed data in both CSV and SQLite database formats.
-Develop machine learning models for sales prediction.
-Evaluate and compare the performance of Decision Tree and Random Forest algorithms.
-Demonstrate a practical data engineering workflow using Python.
-Dataset Description
-This project uses the SuperMarket Analysis dataset obtained from Kaggle.
+* Design and implement an automated ETL pipeline.
+* Extract supermarket transaction data from a CSV dataset.
+* Clean and transform raw transactional data.
+* Generate meaningful daily sales summaries.
+* Store processed data in CSV and SQLite formats.
+* Automate the ETL process using a scheduler.
+* Develop Machine Learning models for sales prediction.
+* Compare Decision Tree and Random Forest models.
+* Evaluate model performance.
+* Demonstrate a practical Data Engineering and Machine Learning workflow using Python.
 
-The dataset contains transactional records collected from supermarket branches and includes customer information, product details, payment methods, transaction dates, quantities sold, and sales values.
+## Dataset
 
-Dataset Features
-Invoice ID
-Branch
-City
-Customer Type
-Gender
-Product Line
-Unit Price
-Quantity
-Tax (5%)
-Sales
-Date
-Time
-Payment Method
-Rating
-Technology Stack
-Category	Technology
-Programming Language	Python
-Data Processing	Pandas, NumPy
-Machine Learning	Scikit-learn
-Database	SQLite
-Development Environment	Jupyter Notebook / Google Colab
-Scheduling	Schedule Library
-Project Architecture
-                Raw CSV Dataset
-                       │
-                       ▼
-                 Extract Stage
-             (Read CSV with Pandas)
-                       │
-                       ▼
-               Transform Stage
-      • Data Cleaning
-      • Date Conversion
-      • Text Standardization
-      • Daily Sales Aggregation
-                       │
-                       ▼
-                  Load Stage
-        ┌─────────────────────────┐
-        │                         │
-        ▼                         ▼
-CSV Report                SQLite Database
-        │                         │
-        └──────────────┬──────────┘
-                       ▼
-          Machine Learning Models
-       • Decision Tree Regressor
-       • Random Forest Regressor
-                       │
-                       ▼
-             Model Evaluation
-ETL Workflow
-1. Extract
-The extraction stage reads the raw supermarket sales dataset from a CSV file using the Pandas library.
+The project uses the SuperMarket Analysis dataset obtained from Kaggle.
+The dataset contains supermarket transaction records including customer information, product details, transaction dates, quantities sold, payment methods, sales values, and customer ratings.
 
-Output:
+### Dataset Features
 
-Raw transaction DataFrame
-2. Transform
-The transformation stage prepares the dataset for analysis by performing the following operations:
+* Invoice ID
+* Branch
+* City
+* Customer Type
+* Gender
+* Product Line
+* Unit Price
+* Quantity
+* Tax (5%)
+* Sales
+* Date
+* Time
+* Payment
+* Rating
+  
+## Technology Stack
 
-Converted the Date column into datetime format.
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* SQLite
+* Matplotlib
+* Seaborn
+* Google Colab
+* Schedule
+* Git
+* GitHub
 
-Standardized categorical text fields.
+## ETL Workflow
 
-Removed unnecessary whitespace.
+The project follows three main ETL stages:
 
-Generated a daily sales summary by grouping transactions according to date.
+### 1. Extract
+The extraction stage reads the raw supermarket sales dataset from a CSV file using Pandas.
+The raw dataset is loaded into a Pandas DataFrame for processing.
 
-Calculated key business metrics including:
+```python
+df = pd.read_csv("SuperMarket Analysis.csv")
+```
 
-Total Daily Sales
-Number of Transactions
-Total Quantity Sold
-Average Daily Sales
-The transformed data provides a concise representation of daily business performance.
+### 2. Transform
+The transformation stage prepares the raw data for reporting and analysis.
+The following operations are performed:
 
-3. Load
-The transformed daily sales summary is exported into two different storage formats:
+* Convert the Date column to datetime format.
+* Remove unnecessary whitespace.
+* Standardize categorical text fields.
+* Create Year, Month, Day, and Weekday features.
+* Group transactions by date.
+* Calculate daily sales metrics.
 
-CSV Output
+The daily sales summary contains:
+* Total Daily Sales
+* Number of Transactions
+* Total Quantity Sold
+* Average Daily Sales
+
+### 3. Load
+The transformed daily sales data is stored in two formats.
+
+**CSV**
+
+```text
 daily_sales_summary.csv
-Provides a portable report that can easily be opened using spreadsheet software.
+```
+The CSV file provides a portable daily sales report that can be opened using spreadsheet applications.
 
-SQLite Database
+**SQLite**
+```text
 daily_sales.db
-Stores the processed data in a relational database for future querying and analytical applications.
+```
+The SQLite database stores the processed sales information in a structured database for future querying and analysis.
 
-ETL Functions
-To improve code readability, maintainability, and reusability, the ETL process was organized into four modular functions:
+## ETL Functions
 
-Function	Description
-extract()	Reads the raw dataset from the CSV file.
-transform(df)	Cleans, transforms, and summarizes the data.
-load(daily_sales)	Saves the transformed data into CSV and SQLite.
-etl_pipeline()	Executes the complete ETL workflow from extraction to loading.
-Pipeline Scheduling
-To support automation, the ETL pipeline was configured using the Python Schedule library.
+The ETL pipeline was organized into four modular functions:
 
-This enables the pipeline to execute automatically at predefined times without manual intervention. In a production environment, the scheduler can be integrated with operating system schedulers such as Windows Task Scheduler or Cron.
+### extract()
+Reads the raw supermarket dataset from the CSV file.
 
-**Machine Learning**
-Following the ETL process, predictive models were developed to estimate sales using historical transaction data.
+### transform(df)
+Cleans, transforms, and aggregates the transaction data.
 
-Features
-Branch
-City
-Customer Type
-Gender
-Product Line
-Unit Price
-Quantity
-Payment Method
-Target Variable
+### load(daily_sales)
+Saves the transformed data into CSV and SQLite formats.
+
+### etl_pipeline()
+Runs the complete ETL workflow from extraction to loading.
+
+The complete pipeline can be executed using:
+
+```python
+etl_pipeline()
+```
+
+## Pipeline Scheduling
+
+The Python Schedule library was used to automate the execution of the ETL pipeline.
+
+Example:
+
+```python
+schedule.every().day.at("18:00").do(etl_pipeline)
+```
+This allows the pipeline to run automatically at a predefined time.
+In a production environment, the scheduling process could be integrated with tools such as Windows Task Scheduler, Cron, or Apache Airflow.
+
+## Machine Learning
+
+Following the ETL process, Machine Learning models were developed to predict sales values using historical transaction data.
+The Machine Learning task was treated as a regression problem because the target variable, Sales, is a continuous numerical value.
+
+### Features
+The following features were used:
+
+* Branch
+* City
+* Customer Type
+* Gender
+* Product Line
+* Unit Price
+* Quantity
+* Payment
+
+### Target Variable
+```text
 Sales
-Machine Learning Models
-Two regression algorithms were implemented:
+```
 
-Decision Tree Regressor
-Random Forest Regressor
-These models were trained to predict sales values based on transaction characteristics.
+### Models
+Two regression models were implemented:
+* Decision Tree Regressor
+* Random Forest Regressor
 
-Model Evaluation
-The predictive models were evaluated using standard regression performance metrics.
+## Model Evaluation
+The models were evaluated using:
 
-Metric	Decision Tree	Random Forest
-Mean Absolute Error (MAE)	0.04	0.05
-Root Mean Squared Error (RMSE)	0.25	0.28
-R² Score	0.8890	0.8634
-Interpretation
-The Decision Tree model achieved:
+* Mean Absolute Error (MAE)
+* Root Mean Squared Error (RMSE)
+* R² Score
 
-Lower Mean Absolute Error
-Lower Root Mean Squared Error
-Higher R² Score
-These results indicate that the Decision Tree provided slightly more accurate predictions than the Random Forest model on the available dataset.
+### Results
+**Decision Tree Regressor**
+* MAE: 0.04
+* RMSE: 0.25
+* R² Score: 0.8890
 
-Classification Evaluation
-As part of the comparative analysis, classification experiments were also performed.
+**Random Forest Regressor**
+* MAE: 0.05
+* RMSE: 0.28
+* R² Score: 0.8634
 
-Both Decision Tree and Random Forest achieved:
+### Model Interpretation
+The Decision Tree Regressor achieved better regression performance than the Random Forest Regressor.
+It achieved:
+* Lower MAE
+* Lower RMSE
+* Higher R² Score
 
-Accuracy: 96.5%
-High Precision
-High Recall
-High F1-Score
-Very few misclassifications according to the Confusion Matrix
-This demonstrates that both algorithms were highly effective in classification tasks, although the Decision Tree produced superior performance when evaluated as a regression model.
+Therefore, the Decision Tree was the better-performing regression model on the evaluated dataset.
 
-Project Structure
+## Additional Classification Experiment
+An additional classification experiment was also performed as part of the project.
+Both Decision Tree and Random Forest achieved approximately 96.5% accuracy, with high Precision, Recall, and F1-Score and very few misclassifications.
+Confusion matrices were also used to evaluate the classification results.
+This classification experiment is separate from the main sales prediction task, which is a regression problem.
+
+## Project Structure
+```text
 Daily-Sales-ETL-Pipeline/
 │
+├── README.md
+├── requirements.txt
 ├── Daily_Sales_ETL.ipynb
 ├── SuperMarket Analysis.csv
 ├── daily_sales_summary.csv
 ├── daily_sales.db
-├── README.md
-├── requirements.txt
-└── images/
-How to Run the Project
-Clone the repository.
+```
 
-Install the required dependencies.
+## Business Value
+The project provides several business benefits:
 
-pip install -r requirements.txt
-Open the notebook using Jupyter Notebook or Google Colab.
+* Reduces manual sales reporting.
+* Improves reporting accuracy.
+* Produces consistent daily sales summaries.
+* Reduces the time required to process sales data.
+* Provides structured historical sales information.
+* Supports faster business decision-making.
+* Introduces predictive analytics for sales performance.
+* Provides a foundation for a scalable data engineering workflow.
+  
+## Future Enhancements
 
-Execute all notebook cells sequentially.
-
-Run the ETL pipeline.
-
-etl_pipeline()
-Review the generated CSV report and SQLite database.
-
-Train and evaluate the machine learning models.
-
-Business Value
-The developed ETL pipeline provides several business benefits:
-
-Eliminates manual sales reporting.
-Improves reporting accuracy.
-Produces consistent daily sales summaries.
-Enables faster business decision-making.
-Supports predictive analytics for sales forecasting.
-Demonstrates a scalable workflow for data engineering projects.
-Future Enhancements
 Potential improvements include:
+* Integration with PostgreSQL.
+* Integration with AWS S3.
+* Development of a Power BI or Tableau dashboard.
+* Real-time sales data processing.
+* Deployment as a REST API using FastAPI or Flask.
+* Hyperparameter tuning.
+* Cross-validation.
+* Docker containerization.
+* Cloud deployment.
+* Apache Airflow integration.
+* Automated model retraining.
 
-Integration with cloud storage and cloud databases.
-Development of an interactive dashboard using Power BI or Tableau.
-Real-time streaming of sales transactions.
-Deployment as a REST API using Flask or FastAPI.
-Hyperparameter tuning to further improve model performance.
-Containerization using Docker for production deployment.
-Conclusion
-This project successfully demonstrates the implementation of a complete Extract, Transform, Load (ETL) pipeline for automating daily supermarket sales reporting. The pipeline extracts raw transactional data, performs data cleaning and aggregation, and loads the processed information into both CSV and SQLite formats for reporting and future analysis.
+## Conclusion
+This project demonstrates the practical implementation of an end-to-end ETL pipeline for automating supermarket sales reporting.
+The pipeline extracts raw transaction data, performs data cleaning and transformation, generates daily sales summaries, and stores the processed data in both CSV and SQLite formats.
 
-To extend the analytical capabilities of the pipeline, Decision Tree and Random Forest regression models were developed to predict sales from transaction characteristics. Model evaluation showed that the Decision Tree Regressor achieved the best overall performance, recording the lowest prediction errors and the highest R² score among the evaluated models.
+Machine Learning models were also developed to predict sales values using transaction characteristics.
+Based on the evaluation results, the Decision Tree Regressor achieved the best regression performance, recording the lowest MAE and RMSE and the highest R² Score.
 
-Overall, the project highlights the practical integration of data engineering and machine learning techniques to automate reporting, improve data accessibility, and support informed business decision-making.
+Overall, the project demonstrates how Data Engineering and Machine Learning can be combined to automate reporting, improve data accessibility, and support data-driven business decision-making.
