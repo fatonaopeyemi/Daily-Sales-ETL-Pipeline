@@ -204,18 +204,6 @@ Both Decision Tree and Random Forest achieved approximately 96.5% accuracy, with
 Confusion matrices were also used to evaluate the classification results.
 This classification experiment is separate from the main sales prediction task, which is a regression problem.
 
-## Project Structure
-```text
-Daily-Sales-ETL-Pipeline/
-│
-├── README.md
-├── requirements.txt
-├── Daily_Sales_ETL.ipynb
-├── SuperMarket Analysis.csv
-├── daily_sales_summary.csv
-├── daily_sales.db
-```
-
 ## Business Value
 The project provides several business benefits:
 
